@@ -128,7 +128,9 @@ def extract_user_preferences_and_update_session(session: dict):
     import json
 
     # Compose chat history as a string
-    chat = "\n".join([f"{m['sender']}: {m['text']}" for m in session.get("history", [])])
+    chat = "\n".join(
+        [f"{m['sender']}: {m['text']}" for m in session.get("history", [])]
+    )
 
     # Compose the extraction prompt
     extraction_prompt = f"""
