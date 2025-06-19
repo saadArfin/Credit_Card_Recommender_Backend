@@ -232,9 +232,12 @@ def llm_generate_recommendation_reason(card, prefs):
     user_summary = "; ".join(user_summary)
     card_summary = f"Card: {card.get('name', '')}\nIssuer: {card.get('issuer', '')}\nAnnual Fee: {card.get('annual_fee', '')}\nReward Type: {card.get('reward_type', '')}\nReward Rate: {card.get('reward_rate', '')}\nSpecial Perks: {card.get('special_perks', '')}"
     prompt = (
-        "Given the following user profile and credit card details, explain in 1-2 sentences why this card is a good fit for the user. Convince them why its a good fit for them or something llike that!"
-        "Be specific and reference both the user's preferences and the card's features.\n"
-        f"User profile: {user_summary}\nCard details: {card_summary}"
+        "You are a credit card recommendation assistant. Based on the following user profile and credit card information, "
+        "write a compelling and concise explanation (1–2 sentences) highlighting **why this card is a great match** for the user. "
+        "Focus on specific matches between the user's preferences and the card’s features. Your goal is to persuade the user by clearly explaining the benefits they’ll get.\n\n"
+        f"User Profile:\n{user_summary}\n\n"
+        f"Card Details:\n{card_summary}\n\n"
+        "Explain in a friendly, persuasive tone."
     )
     try:
         response = genai_client.models.generate_content(
