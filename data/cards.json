@@ -56,7 +56,7 @@
     "reward_rate": "10 points per ₹100 on dining, groceries, entertainment, shopping; 2 points per ₹100 on other spends:contentReference[oaicite:14]{index=14}",
     "eligibility": "Age 21-65; good income and credit profile:contentReference[oaicite:15]{index=15}",
     "special_perks": "Complimentary airport lounge access; ₹5,000 gift vouchers on joining; 6 movie tickets per year (worth ₹6,000); 1% fuel surcharge waiver:contentReference[oaicite:16]{index=16}:contentReference[oaicite:17]{index=17}",
-    "image_url": "",
+    "image_url": "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/network-card-images/Elite_349x218-px-Front.png",
     "apply_link": "https://www.example.com/apply?card=sbi-elite"
   },
   {
@@ -68,7 +68,7 @@
     "reward_rate": "10 points per ₹100 on dining, groceries, entertainment, shopping; 2 points per ₹100 on other spends:contentReference[oaicite:18]{index=18}",
     "eligibility": "Age 21-65; income as per bank criteria",
     "special_perks": "Welcome vouchers ₹3,000; 12 airport lounge visits per year (8 domestic + 4 international); Club Vistara Silver & Trident Privilege memberships; 1% fuel surcharge waiver:contentReference[oaicite:19]{index=19}:contentReference[oaicite:20]{index=20}",
-    "image_url": "https://cms-resources.groww.in/uploads/SBI-Prime-Credit-Card_fae9212b32.jpeg",
+    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2024/11/SBI-Prime-Credit-Card-Images_1.jpg",
     "apply_link": "https://www.example.com/apply?card=sbi-prime"
   },
   {
@@ -80,7 +80,7 @@
     "reward_rate": "10 points per ₹100 on online spends; 2 points per ₹100 on other spends:contentReference[oaicite:21]{index=21}",
     "eligibility": "Age 21-65; stable income",
     "special_perks": "Welcome bonus of 5,000 points; 5 airport lounge visits per year; 1% fuel surcharge waiver:contentReference[oaicite:22]{index=22}",
-    "image_url": "https://cms-resources.groww.in/uploads/SBI-SimplyCLICK-Credit-Card_310d3951a8.jpeg",
+    "image_url": "https://cms-resources.groww.in/uploads/sbi_simplyclick_credit_card_66055f6cd0.png",
     "apply_link": "https://www.example.com/apply?card=sbi-simplyclick"
   },
   {
@@ -92,7 +92,7 @@
     "reward_rate": "5% on bill payments (utilities, DTH, etc.); 4% on Swiggy, Ola, PVR; 1.5% on other spends:contentReference[oaicite:23]{index=23}",
     "eligibility": "Age 18-65; income as per bank norms",
     "special_perks": "4 complimentary lounge visits per year; 1% fuel surcharge waiver (up to ₹500/month); up to 15% discount on dining:contentReference[oaicite:24]{index=24}",
-    "image_url": "",
+    "image_url": "https://cardmaven.in/wp-content/uploads/2023/05/Axis-Bank-Ace-Card.webp",
     "apply_link": "https://www.example.com/apply?card=axis-ace"
   },
   {
@@ -104,7 +104,7 @@
     "reward_rate": "5% back on Flipkart/Myntra; 4% on Flipkart partner merchants (Swiggy, Uber, PVR, etc.); 1.5% on other spends:contentReference[oaicite:25]{index=25}",
     "eligibility": "Age 18-70; salaried ₹15,000+/month or self-employed ₹30,000+/month:contentReference[oaicite:26]{index=26}",
     "special_perks": "Welcome bonus ₹1,100 (Flipkart+Myntra vouchers); 4 domestic lounge visits per year; 15% off first Myntra purchase; 1% fuel surcharge waiver (up to ₹400/month):contentReference[oaicite:27]{index=27}",
-    "image_url": "",
+    "image_url": "https://www.axisbank.com/images/default-source/revamp_new/cards/cc-new/card2.png",
     "apply_link": "https://www.example.com/apply?card=axis-flipkart"
   },
   {
@@ -116,7 +116,7 @@
     "reward_rate": "4 Vistara Club Points per ₹200 (equivalent to ~2% value):contentReference[oaicite:28]{index=28}",
     "eligibility": "Age 18+; income and other criteria per bank",
     "special_perks": "Complimentary Premium Economy class ticket on joining/renewal; free Club Vistara Silver membership; 2 complimentary airport lounge visits per year; milestone flight vouchers; golf and dining privileges:contentReference[oaicite:29]{index=29}:contentReference[oaicite:30]{index=30}",
-    "image_url": "",
+    "image_url": "https://cardmaven.in/wp-content/uploads/2023/11/Axis-Bank-Vistara-Signature-Credit-Card.webp",
     "apply_link": "https://www.example.com/apply?card=axis-vistara-signature"
   },
   {
@@ -128,7 +128,7 @@
     "reward_rate": "2 points per ₹100 on retail spends (4 points per ₹100 on movies and dining); 1 point per ₹100 on utilities and insurance:contentReference[oaicite:31]{index=31}",
     "eligibility": "Age 18+; income as per bank norms",
     "special_perks": "25% off movie tickets (twice a month); free lounge access (1 per quarter); 1% fuel surcharge waiver:contentReference[oaicite:32]{index=32}",
-    "image_url": "",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh5rfYPcpOxd1ymVLJIETOgXKjRawR7nrOFA&s",
     "apply_link": "https://www.example.com/apply?card=icici-coral"
   },
   {
@@ -140,7 +140,7 @@
     "reward_rate": "1 point per ₹100 on retail spends (up to 6x via SmartBuy)",
     "eligibility": "Age 18+; high income per bank criteria",
     "special_perks": "Complimentary Bose headphones on joining; free lounge access (1 per quarter); concierge service; 1% fuel surcharge waiver; travel & dining offers",
-    "image_url": "",
+    "image_url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/cards/images/Sapphiro-486X224.png",
     "apply_link": "https://www.example.com/apply?card=icici-sapphiro"
   },
   {
@@ -152,7 +152,7 @@
     "reward_rate": "5% cashback (points) on Amazon spends for Prime; 3% for non-Prime; 2% on Amazon Pay partner merchants; 1% on all other spends:contentReference[oaicite:35]{index=35}",
     "eligibility": "Aadhaar-based & savings account holder at ICICI",
     "special_perks": "Free 3-month Amazon Prime membership; welcome e-gift (up to ₹2,000 on Amazon Pay):contentReference[oaicite:36]{index=36}",
-    "image_url": "https://cms-resources.groww.in/uploads/Amazon-Pay_Credit_Card_2829d23ec9.jpeg",
+    "image_url": "https://m.media-amazon.com/images/G/31/img18/AmazonPay/Affordability/CBCC/Amazoncard_Final._CB570101839_.jpg",
     "apply_link": "https://www.example.com/apply?card=icici-amazon-pay"
   },
   {
@@ -164,7 +164,7 @@
     "reward_rate": "4 points per ₹150 on special categories (travel, dining, fuel, etc.); 2 points per ₹150 on all other spends:contentReference[oaicite:37]{index=37}",
     "eligibility": "Age 21+; income as per bank requirements",
     "special_perks": "30,000 bonus points on ₹8 lakh annual spend; 6 free PVR tickets annually; 2 lounge visits per quarter; fuel surcharge waiver (up to ₹3,500/year):contentReference[oaicite:38]{index=38}:contentReference[oaicite:39]{index=39}",
-    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2019/10/Kotak-Royale-Signature.png",
+    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2017/10/Kotak-Royale.jpg",
     "apply_link": "https://www.example.com/apply?card=kotak-royale-signature"
   },
   {
@@ -176,7 +176,7 @@
     "reward_rate": "10 points per ₹100 at grocery and departmental stores; 1 point per ₹250 on other spends:contentReference[oaicite:40]{index=40}",
     "eligibility": "Age 21+; income as per bank criteria",
     "special_perks": "10% savings on groceries (up to 500 points per statement); 6 free PVR tickets every 6 months (or 1,200 points) on ₹1.25L spend:contentReference[oaicite:41]{index=41}",
-    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2021/02/Kotak-Essentia-Platinum.png",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrmdqhAlEcjsD4EizcfudxAisZL0LAXPGRxw&s",
     "apply_link": "https://www.example.com/apply?card=kotak-essentia-platinum"
   },
   {
@@ -188,7 +188,7 @@
     "reward_rate": "Up to 5 AIR MILES per ₹100 (varies by spend category)",
     "eligibility": "High-net-worth individuals (as per bank criteria)",
     "special_perks": "Unlimited airport lounge access (international with Priority Pass, domestic on high spends); 4 complimentary golf lessons per month; luxury hotel vouchers; premium concierge; travel insurance:contentReference[oaicite:42]{index=42}:contentReference[oaicite:43]{index=43}",
-    "image_url": "https://images.cardinsider.com/Bank/IN/IndusInd/Pinnacle/CreditCard.png",
+    "image_url": "https://cms-resources.groww.in/uploads/indusind_pinnacle_credit_card_1c7f7a595d.jpg",
     "apply_link": "https://www.example.com/apply?card=indusind-pinnacle"
   },
   {
@@ -200,7 +200,7 @@
     "reward_rate": "1 point per ₹100 on groceries, travel, dining, utility spends (additional bonus on Wednesdays):contentReference[oaicite:44]{index=44}",
     "eligibility": "Age 18+; income as per bank criteria",
     "special_perks": "Welcome 2,000 points + 1,000 bonus; 4,000 bonus points on ₹1.2L annual spend; buy-1-get-1 movie tickets on Wednesdays; 1% fuel surcharge waiver (up to ₹100/month):contentReference[oaicite:45]{index=45}:contentReference[oaicite:46]{index=46}",
-    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2019/07/RBL-Titanium-Delight.png",
+    "image_url": "https://www.credithita.com/images/cards/rbl-bank-titanium-delight-credit-card.jpg",
     "apply_link": "https://www.example.com/apply?card=rbl-titanium-delight"
   },
   {
@@ -224,7 +224,7 @@
     "reward_rate": "2 points per ₹100 on domestic spends; 4 points per ₹100 on international spends; 1 point per ₹100 on utilities/insurance:contentReference[oaicite:50]{index=50}",
     "eligibility": "Age 23+; Salaried ₹50,000+/month or Self-Employed ₹5.5LPA; good credit history:contentReference[oaicite:51]{index=51}",
     "special_perks": "Welcome e-vouchers worth ₹5,000+; up to 15,000 bonus points/year on spends; 2 complimentary golf rounds/month; 2 lounge visits/quarter; 25% off movie tickets twice a month:contentReference[oaicite:52]{index=52}:contentReference[oaicite:53]{index=53}",
-    "image_url": "",
+    "image_url": "https://www.paisabazaar.com/wp-content/uploads/2017/10/ICICI-Rubyx-Credit-Card.png",
     "apply_link": "https://www.example.com/apply?card=icici-rubyx"
   },
   {
@@ -236,7 +236,7 @@
     "reward_rate": "1 point per ₹50 on all spends (excl. fuel, insurance, utilities):contentReference[oaicite:54]{index=54}",
     "eligibility": "Age 18+; personal annual income ₹6 lakh+; resident of India:contentReference[oaicite:55]{index=55}",
     "special_perks": "8 complimentary airport lounge visits/year; Priority Pass membership; Taj experiences gift card ₹10,000; milestone bonuses of 10k/15k/25k points on spend thresholds; dining discounts; fuel surcharge waiver:contentReference[oaicite:56]{index=56}:contentReference[oaicite:57]{index=57}",
-    "image_url": "",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLfv21kIupnX5ks9S-pe3yARXTE-ApXCZFCw&s",
     "apply_link": "https://www.example.com/apply?card=amex-platinum-travel"
   }
 ]

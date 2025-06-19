@@ -1,14 +1,19 @@
 # Credit Card Agent (FastAPI Backend)
 
-A robust, explainable, LLM-powered credit card recommendation backend for Indian users. Guides users through a Q&A journey, extracts and stores structured preferences, and uses these for vector search, reward simulation, and LLM explanations.
+A robust, explainable, LLM-powered credit card recommendation backend for Indian users. Guides users through a Q&A journey, extracts and stores structured preferences, and uses these for vector search, reward simulation, and explanations.
+
+---
 
 ## Features
-- Conversational Q&A to extract user preferences
-- Gemini LLM for chat, embeddings, and explanations
-- Pinecone for vector search
-- Reward simulation and explainable recommendations
+- Conversational, LLM-powered Q&A to extract user preferences
+- Gemini (Google Generative AI) for chat, embeddings, and explanations
+- Pinecone for vector search and card similarity
+- Reward simulation and explainable recommendations (LLM + fallback logic)
 - Session management (in-memory and file-based)
-- Ready for integration with a modern frontend
+- Cloud-ready: deployable to Render.com or any cloud platform
+- Easy integration with modern frontend (Next.js, etc.)
+
+---
 
 ## Project Structure
 ```
@@ -27,17 +32,43 @@ requirements.txt       # Python dependencies
 .env                   # API keys (do NOT commit)
 ```
 
-## Quickstart (Local)
-1. Clone the repo and install dependencies:
+---
+
+## Setup Instructions
+
+1. **Clone the repo**
+   ```sh
+   git clone <your-repo-url>
+   cd CreditCardAgent
+   ```
+2. **Install dependencies**
    ```sh
    pip install -r requirements.txt
    ```
-2. Add your `.env` file with Gemini and Pinecone API keys.
-3. Run the app:
+3. **Set environment variables**
+   - Create a `.env` file with:
+     ```
+     GEMINI_API_KEY=your_gemini_api_key
+     PINECONE_API_KEY=your_pinecone_api_key
+     ```
+4. **Run the backend**
    ```sh
    uvicorn app.main:app --reload
    ```
-4. Access the API at `http://localhost:8000`.
+5. **API Endpoints**
+   - `POST /chat`: Conversational chat endpoint.
+   - `POST /recommend`: Get top card recommendations for a session.
+
+---
+
+## Agent Flow & Prompt Design
+
+- **Session-based Q&A**: Each user session stores chat history and extracted preferences.
+- **LLM Extraction**: Gemini Flash extracts structured preferences from chat.
+- **Vector Search**: User preferences are embedded and matched against card embeddings in Pinecone.
+- **LLM Reasoning**: Each card recommendation includes an custom LLM-generated explanation and reward simulation.
+
+---
 
 ## Deployment (Render.com)
 1. Push your code to GitHub (do NOT commit `.env` or `sessions.json`).
@@ -51,9 +82,13 @@ requirements.txt       # Python dependencies
 - File-based session storage (`sessions.json`) is ephemeral on Render. For production, use a database.
 - Do NOT commit your `.env` file or secrets.
 
+---
+
 ## API Endpoints
 - `POST /chat` — Conversational chat endpoint
 - `POST /recommend` — Get credit card recommendations
+
+---
 
 ## License
 MIT

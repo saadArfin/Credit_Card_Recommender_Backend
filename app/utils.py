@@ -4,97 +4,11 @@ from google import genai
 from google.genai import types
 from app.embedding_utils import generate_text_embedding
 from app.gemini_api import genai_client
+
 # import json
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-
-# def extract_user_preferences(session_history):
-#     prefs = {
-#         "age": None,
-#         "income": None,
-#         "spend": {},
-#         "preferred_benefits": [],
-#         "issuer": None,
-#         "special_perks": [],
-#         "low_fee": False,
-#     }
-#     last_q = ""
-#     for m in session_history:
-#         if m["sender"] == "bot":
-#             last_q = m["text"].lower()
-#         elif m["sender"] == "user":
-#             ans = m["text"].lower()
-#             if "age" in last_q:
-#                 try:
-#                     prefs["age"] = int([int(s) for s in ans.split() if s.isdigit()][0])
-#                 except:
-#                     pass
-#             elif "income" in last_q:
-#                 prefs["income"] = ans
-#             elif "fuel" in last_q:
-#                 prefs["spend"]["fuel"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             elif "travel" in last_q:
-#                 prefs["spend"]["travel"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             elif "grocer" in last_q:
-#                 prefs["spend"]["groceries"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             elif "dining" in last_q:
-#                 prefs["spend"]["dining"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             elif "online shopping" in last_q:
-#                 prefs["spend"]["online"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             elif "utilit" in last_q:
-#                 prefs["spend"]["utilities"] = (
-#                     int("".join([c for c in ans if c.isdigit()]))
-#                     if any(x.isdigit() for x in ans)
-#                     else 0
-#                 )
-#             # Custom spending category support
-#             elif "spending" in last_q or "spend" in last_q:
-#                 # Try to extract category from the question
-#                 import re
-
-#                 match = re.search(r"spending on ([a-zA-Z ]+)[?]", last_q)
-#                 if match:
-#                     cat = match.group(1).strip().replace(" ", "_")
-#                     prefs["spend"][cat] = (
-#                         int("".join([c for c in ans if c.isdigit()]))
-#                         if any(x.isdigit() for x in ans)
-#                         else 0
-#                     )
-#             elif "benefit" in last_q or "reward" in last_q:
-#                 prefs["preferred_benefits"] = [
-#                     b.strip() for b in ans.replace("and", ",").split(",")
-#                 ]
-#             elif "issuer" in last_q or "bank" in last_q:
-#                 prefs["issuer"] = ans if ans != "no" else None
-#             elif "perk" in last_q:
-#                 prefs["special_perks"] = [
-#                     b.strip() for b in ans.replace("and", ",").split(",")
-#                 ]
-#             elif "fee" in last_q:
-#                 prefs["low_fee"] = "yes" in ans or "yews" in ans or "low" in ans
-#     return prefs
 
 
 def parse_amount(text):
@@ -132,25 +46,37 @@ def extract_user_preferences_and_update_session(session: dict):
     )
 
     # Compose the extraction prompt
+
     extraction_prompt = f"""
-Given the following chat history between a user and a credit card assistant, extract the user's preferences as a JSON object with these fields:
-- age (int or null)
-- income (int or null)
-- income_period (\"monthly\", \"annual\", or null)
-- spending (dict of category: int)
-- custom_spending (dict of category: int)
-- reward_preferences (list of strings)
-- bank_preference (string or null)
-- special_features (list of strings)
-- annual_fee_preference (bool or null)
-- credit_score (string or null)
-- existing_cards (list of strings)
+    You are a data extractor.
 
-Chat history:
-{chat}
+    Given the following chat history between a user and a credit card assistant, extract the user's preferences in **valid JSON format** with these exact fields and types:
 
-Respond ONLY with the JSON object.
-"""
+    ```json
+    {{
+    "age": int or null,
+    "income": int or null,
+    "income_period": "monthly" or "annual" or null,
+    "spending": {{
+        "fuel": int,
+        "travel": int,
+        "groceries": int,
+        "dining": int,
+        "online_shopping": int,
+        "utilities": int
+    }},
+    "custom_spending": {{
+        "<other_category_name>": int
+    }},
+    "reward_preferences": [string],
+    "bank_preference": string or null,
+    "special_features": [string],
+    "annual_fee_preference": true or false or null,
+    "credit_score": string or null,
+    "existing_cards": [string]
+    }}
+
+    """
 
     # Call Gemini Flash
     try:
@@ -181,50 +107,57 @@ Respond ONLY with the JSON object.
     return prefs
 
 
-def get_recommendation_reasons(card, prefs):
-    reasons = []
-    for benefit in prefs["reward_preferences"]:
-        if (
-            benefit
-            and benefit.lower() in card.get("reward_type", "").lower()
-            or benefit.lower() in card.get("special_perks", "").lower()
-        ):
-            reasons.append(f"Matches your preference: {benefit}")
-    for cat in prefs["spending"]:
-        if cat in card.get("reward_rate", "").lower():
-            reasons.append(f"High rewards on {cat}")
-    if (
-        prefs["bank_preference"]
-        and prefs["bank_preference"] in card.get("issuer", "").lower()
-    ):
-        reasons.append(f"Preferred issuer: {prefs['bank_preference']}")
-    if prefs["annual_fee_preference"]:
-        try:
-            fee = int("".join([c for c in card.get("annual_fee", "") if c.isdigit()]))
-            if fee <= 1000:
-                reasons.append("Low annual fee")
-        except:
-            pass
-    for perk in prefs["special_features"]:
-        if perk and perk.lower() in card.get("special_perks", "").lower():
-            reasons.append(f"Includes perk: {perk}")
-    return reasons or ["General match to your preferences"]
-
-
 def simulate_rewards(card, prefs):
-    # Improved: fallback to generic rates if category-specific not found
+    """
+    Simulate annual rewards for a card and user preferences using Gemini LLM (Flash).
+    Falls back to regex-based method if LLM fails.
+    """
+    import re
+    from app.gemini_api import genai_client
+    from google.genai import types
+    import json
+
+    # Prepare prompt for Gemini
+    prompt = f"""
+    You are a financial assistant. Given the following credit card details and user spending preferences, estimate the total annual rewards the user could earn with this card. 
+    
+    Card details (JSON):
+    {json.dumps(card, ensure_ascii=False, indent=2)}
+    
+    User spending preferences (JSON):
+    {json.dumps(prefs.get('spending', {}), ensure_ascii=False, indent=2)}
+    
+    Please:
+    - Calculate the total estimated annual rewards (in INR) for this user, based on the reward structure and spending.
+    - Show a breakdown by category if possible.
+    - If the reward structure is unclear, say so.
+    - Respond in valid JSON with fields: {{"total_rewards_inr": int, "details": [string]}}.
+    """
+    try:
+        response = genai_client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(thinking_budget=0)
+            ),
+        )
+        result = json.loads(response.text)
+        total = result.get("total_rewards_inr", 0)
+        details = result.get("details", [])
+        if details:
+            return f"You could earn approx. ₹{total:.0f}/year", details
+    except Exception as e:
+        print("LLM reward simulation error, falling back to regex:", e)
+        
+    # --- Fallback: regex-based method ---
     total = 0
     details = []
     rr = card.get("reward_rate", "").lower()
-    import re
-
-    # Fallback: look for generic rates
     generic_cb_match = re.search(r"(\d+)% on (all|other|any) spends", rr)
-    generic_pt_match = re.search(r"(\d+) points per [₹rs\. ]*(\d+)", rr)
-    for cat, spend in prefs["spending"].items():
+    generic_pt_match = re.search(r"(\d+) points per [₹rs\\. ]*(\d+)", rr)
+    for cat, spend in prefs.get("spending", {}).items():
         if spend == 0:
             continue
-        # Try category-specific cashback
         cb_match = re.search(r"(\d+)%.*" + cat, rr)
         if cb_match:
             rate = float(cb_match.group(1)) / 100
@@ -233,8 +166,7 @@ def simulate_rewards(card, prefs):
             total += reward
             details.append(f"{rate*100:.0f}% cashback on {cat}: ₹{reward:.0f}/year")
             continue
-        # Try category-specific points
-        pt_match = re.search(r"(\d+) points per [₹rs\. ]*(\d+).*(" + cat + ")", rr)
+        pt_match = re.search(r"(\d+) points per [₹rs\\. ]*(\d+).*(" + cat + ")", rr)
         if pt_match:
             pts = float(pt_match.group(1))
             per = float(pt_match.group(2))
@@ -247,7 +179,6 @@ def simulate_rewards(card, prefs):
                 f"{pts:.0f} points per ₹{per:.0f} on {cat}: {reward_points:.0f} points/year (~₹{reward_inr:.0f}/year)"
             )
             continue
-        # Fallback: generic cashback
         if generic_cb_match:
             rate = float(generic_cb_match.group(1)) / 100
             annual = spend * 12
@@ -257,7 +188,6 @@ def simulate_rewards(card, prefs):
                 f"{rate*100:.0f}% cashback on {cat}: ₹{reward:.0f}/year (generic)"
             )
             continue
-        # Fallback: generic points
         if generic_pt_match:
             pts = float(generic_pt_match.group(1))
             per = float(generic_pt_match.group(2))
@@ -302,7 +232,7 @@ def llm_generate_recommendation_reason(card, prefs):
     user_summary = "; ".join(user_summary)
     card_summary = f"Card: {card.get('name', '')}\nIssuer: {card.get('issuer', '')}\nAnnual Fee: {card.get('annual_fee', '')}\nReward Type: {card.get('reward_type', '')}\nReward Rate: {card.get('reward_rate', '')}\nSpecial Perks: {card.get('special_perks', '')}"
     prompt = (
-        "Given the following user profile and credit card details, explain in 1-2 sentences why this card is a good fit for the user. Always tell them its a good fit for them or something llike that!"
+        "Given the following user profile and credit card details, explain in 1-2 sentences why this card is a good fit for the user. Convince them whyits a good fit for them or something llike that!"
         "Be specific and reference both the user's preferences and the card's features.\n"
         f"User profile: {user_summary}\nCard details: {card_summary}"
     )
@@ -392,7 +322,6 @@ def get_top_credit_card_recommendations_from_session(
     result = pinecone_index.query(vector=embedding, top_k=top_k, include_metadata=True)
     cards = [match["metadata"] for match in result["matches"]]
     for card in cards:
-        card["reasons"] = get_recommendation_reasons(card, prefs)
         sim, details = simulate_rewards(card, prefs)
         card["reward_simulation"] = sim
         card["reward_details"] = details
