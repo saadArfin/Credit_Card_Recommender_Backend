@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
-from google import genai
+# from google import genai
+import google.generativeai as genai  
+
 from google.genai import types
 from app.system_prompt import SYSTEM_PROMPT
 from app.embedding_utils import generate_embedding
