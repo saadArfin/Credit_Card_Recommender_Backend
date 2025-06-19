@@ -5,31 +5,30 @@ from google.genai import types
 from app.embedding_utils import generate_text_embedding
 from app.gemini_api import genai_client
 
-# import json
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 
-def parse_amount(text):
-    import re
+# def parse_amount(text):
+#     import re
 
-    text = text.lower().replace(",", "")
-    match = re.search(r"(\d+)(?:\s*(thousand|lakh|lakhs|million|crore|cr))?", text)
-    if not match:
-        return 0
-    num = int(match.group(1))
-    mult = 1
-    if match.group(2):
-        if "thousand" in match.group(2):
-            mult = 1000
-        elif "lakh" in match.group(2):
-            mult = 100000
-        elif "million" in match.group(2):
-            mult = 1000000
-        elif "crore" in match.group(2) or "cr" in match.group(2):
-            mult = 10000000
-    return num * mult
+#     text = text.lower().replace(",", "")
+#     match = re.search(r"(\d+)(?:\s*(thousand|lakh|lakhs|million|crore|cr))?", text)
+#     if not match:
+#         return 0
+#     num = int(match.group(1))
+#     mult = 1
+#     if match.group(2):
+#         if "thousand" in match.group(2):
+#             mult = 1000
+#         elif "lakh" in match.group(2):
+#             mult = 100000
+#         elif "million" in match.group(2):
+#             mult = 1000000
+#         elif "crore" in match.group(2) or "cr" in match.group(2):
+#             mult = 10000000
+#     return num * mult
 
 
 def extract_user_preferences_and_update_session(session: dict):
@@ -148,8 +147,8 @@ def simulate_rewards(card, prefs):
             return f"You could earn approx. ₹{total:.0f}/year", details
     except Exception as e:
         print("LLM reward simulation error, falling back to regex:", e)
-        
-    # --- Fallback: regex-based method ---
+
+    #Fallback: regex-based method 
     total = 0
     details = []
     rr = card.get("reward_rate", "").lower()
@@ -208,7 +207,7 @@ def llm_generate_recommendation_reason(card, prefs):
     """
     Use Gemini LLM to generate a natural language explanation for why this card is recommended.
     """
-    # Compose a prompt for the LLM
+
     user_summary = []
     if prefs.get("income"):
         user_summary.append(f"Income: {prefs['income']}")
@@ -229,10 +228,11 @@ def llm_generate_recommendation_reason(card, prefs):
         user_summary.append(f"Preferred issuer: {prefs['bank_preference']}")
     if prefs.get("annual_fee_preference"):
         user_summary.append("Prefers low/waived fee")
+
     user_summary = "; ".join(user_summary)
     card_summary = f"Card: {card.get('name', '')}\nIssuer: {card.get('issuer', '')}\nAnnual Fee: {card.get('annual_fee', '')}\nReward Type: {card.get('reward_type', '')}\nReward Rate: {card.get('reward_rate', '')}\nSpecial Perks: {card.get('special_perks', '')}"
     prompt = (
-        "Given the following user profile and credit card details, explain in 1-2 sentences why this card is a good fit for the user. Convince them whyits a good fit for them or something llike that!"
+        "Given the following user profile and credit card details, explain in 1-2 sentences why this card is a good fit for the user. Convince them why its a good fit for them or something llike that!"
         "Be specific and reference both the user's preferences and the card's features.\n"
         f"User profile: {user_summary}\nCard details: {card_summary}"
     )
@@ -246,8 +246,7 @@ def llm_generate_recommendation_reason(card, prefs):
         )
         return response.text.strip()
     except Exception as e:
-        print("LLM reason generation error:", e)
-        return "AI explanation not available."
+        return "Explanation not available."
 
 
 def generate_text_embedding_from_preferences(preferences: dict):
@@ -316,6 +315,7 @@ def get_top_credit_card_recommendations_from_session(
         # If only history is passed, wrap in a dict for compatibility
         session = {"history": history}
         prefs = extract_user_preferences_and_update_session(session)
+        
     # Use preferences-based summary for embedding
     embedding = generate_text_embedding_from_preferences(prefs)
     cards = []
@@ -325,6 +325,5 @@ def get_top_credit_card_recommendations_from_session(
         sim, details = simulate_rewards(card, prefs)
         card["reward_simulation"] = sim
         card["reward_details"] = details
-        # Add LLM-powered explanation
         card["llm_reason"] = llm_generate_recommendation_reason(card, prefs)
     return cards

@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 from google import genai
-# import google.generativeai as genai  
-
 from google.genai import types
 from app.system_prompt import SYSTEM_PROMPT
 from app.embedding_utils import generate_embedding
@@ -61,7 +59,7 @@ async def chat_with_gemini(session_id: str, user_input: str) -> str:
     session["history"].append({"sender": "user", "text": user_input})
 
     prompt = "\n".join([f"{m['sender']}: {m['text']}" for m in session["history"]])
-    # System prompt for Gemini
+    
     full_prompt = f"{SYSTEM_PROMPT}\n{prompt}"
 
     bot_reply = ask_gemini(full_prompt)
@@ -69,6 +67,6 @@ async def chat_with_gemini(session_id: str, user_input: str) -> str:
 
 
 
-    save_sessions()  # ← persist data after each reply
+    save_sessions()  #persist data after each reply
 
     return bot_reply

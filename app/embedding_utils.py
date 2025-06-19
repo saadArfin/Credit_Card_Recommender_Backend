@@ -51,9 +51,3 @@ def generate_text_embedding(text: str):
         return embedding[0].values
     return embedding
 
-
-# with open("data/cards.json", "r", encoding="utf-8") as f:
-#     credit_cards = json.load(f)
-
-# vector = generate_embedding(credit_cards[0])
-# print(f"Generated embedding for {credit_cards[0]['name']}: {vector}")
