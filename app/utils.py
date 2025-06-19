@@ -315,15 +315,15 @@ def get_top_credit_card_recommendations_from_session(
         # If only history is passed, wrap in a dict for compatibility
         session = {"history": history}
         prefs = extract_user_preferences_and_update_session(session)
-        
+
     # Use preferences-based summary for embedding
     embedding = generate_text_embedding_from_preferences(prefs)
     cards = []
     result = pinecone_index.query(vector=embedding, top_k=top_k, include_metadata=True)
     cards = [match["metadata"] for match in result["matches"]]
     for card in cards:
-        sim, details = simulate_rewards(card, prefs)
-        card["reward_simulation"] = sim
-        card["reward_details"] = details
+        # sim, details = simulate_rewards(card, prefs)
+        # card["reward_simulation"] = sim
+        # card["reward_details"] = details
         card["llm_reason"] = llm_generate_recommendation_reason(card, prefs)
     return cards

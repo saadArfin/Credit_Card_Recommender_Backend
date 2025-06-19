@@ -63,8 +63,8 @@ async def recommend(session_id: str, top_k: int = 3):
             "name": card.get("name", ""),
             "image_url": card.get("image_url", ""),
             "apply_link": card.get("apply_link", ""),
-            "reward_simulation": card.get("reward_simulation", ""),
-            "reward_details": card.get("reward_details", []),
+            # "reward_simulation": card.get("reward_simulation", ""),
+            # "reward_details": card.get("reward_details", []),
             "llm_reason": card.get("llm_reason", ""),
         }
         for card in recommendations
