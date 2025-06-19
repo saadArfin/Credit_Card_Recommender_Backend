@@ -1,11 +1,10 @@
 import os
 from dotenv import load_dotenv
-from google.generativeai import embed_content
 from google import genai
 from google.genai import types
-from app.embedding_utils import generate_embedding, generate_text_embedding
+from app.embedding_utils import generate_text_embedding
 from app.gemini_api import genai_client
-import json
+# import json
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
